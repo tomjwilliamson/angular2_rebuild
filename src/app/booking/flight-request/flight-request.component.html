@@ -1,0 +1,39 @@
+<form [formGroup]="flightRequestForm" (ngSubmit)="submitForm(flightRequestForm.value, $event)" name="flightRequestForm" id="flightRequestForm" novalidate>
+
+  <div class="form-group" [ngClass]="{ 'has-error' : flightRequestForm.controls['FlightNumber'].invalid && flightRequestForm.controls['FlightNumber'].dirty }">
+    <input class="form-control no-label" [formControl]="flightRequestForm.controls['FlightNumber']" name="FlightNumber" id="FlightNumber" placeholder="Flight number e.g. BA123" type="text">
+  </div>
+  <p class="help-block text-danger" *ngIf="!flightRequestForm.controls['FlightNumber'].valid && flightRequestForm.controls['FlightNumber'].touched">Flight number should start with BA</p>
+
+  <div class="form-group date-inputs clearfix" [ngClass]="{ 'has-error' : flightRequestForm.controls['DepartureDay'].invalid && flightRequestForm.controls['DepartureDay'].dirty || 
+                                                                          flightRequestForm.controls['DepartureMonth'].invalid && flightRequestForm.controls['DepartureMonth'].dirty || 
+                                                                          flightRequestForm.controls['DepartureYear'].invalid && flightRequestForm.controls['DepartureYear'].dirty }">
+    <input class="form-control date-inputs__day no-label pull-left" [formControl]="flightRequestForm.controls['DepartureDay']" name="DepartureDay" id="DepartureDay" placeholder="DD" type="number" maxlength="2" required="">
+    <input class="form-control date-inputs__month no-label pull-left" [formControl]="flightRequestForm.controls['DepartureMonth']" name="DepartureMonth" id="DepartureMonth" placeholder="MM" type="number" maxlength="2" required="">
+    <input class="form-control date-inputs__year no-label pull-left" [formControl]="flightRequestForm.controls['DepartureYear']" name="DepartureYear" id="DepartureYear" placeholder="YYYY" type="number" maxlength="4" required="">
+    <div class="date-inputs__separator"></div>
+  </div>
+
+  <!--<p class="help-block text-danger">Flight departure time needs to be at least 19 hours from now</p>
+  <p class="help-block text-danger">Flight departure date needs to be within 5 years from now</p>
+  <p class="help-block text-danger">{-$ctrl.apiErrorText-}</p>-->
+
+  <div class="clearfix">
+    <button id="formFlight-submit" type="submit" [disabled]="!flightRequestForm.valid" class="btn btn-accent btn-lg xs-full-width pull-right">
+      <div class="loader-container-btn" *ngIf="isLoading">
+        <div class="loader loader--gray">
+          <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+          </svg>
+        </div>
+      </div>
+      Find my flight
+    </button>
+  </div>
+
+  <!--<div>Current Count: {{ panelNumber }}</div>
+
+  <button (click)="goToPanel('prev')">Prev</button>
+  <button (click)="goToPanel('next')">Next</button>-->
+
+</form>
